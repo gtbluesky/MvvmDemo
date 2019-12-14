@@ -1,0 +1,11 @@
+dependencies {
+    //Kotlin 标准库
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    //Kotlin 反射
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    //Kotlin Anko
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    //Kotlin 协程
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+}
