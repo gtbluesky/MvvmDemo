@@ -31,7 +31,7 @@ class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {
                     statValue.value = it
                 },
                 {
-                    mErrorMsg.value = it
+                    errorMsg.value = it
                 }
             )
             handleResponse<List<HomeMenuBean>>(
@@ -40,7 +40,7 @@ class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {
                     menuValue.value = it
                 },
                 {
-                    mErrorMsg.value = it
+                    errorMsg.value = it
                 }
             )
         }
@@ -57,7 +57,7 @@ class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {
                     statValue.value = it
                 },
                 {
-                    mErrorMsg.value = it
+                    errorMsg.value = it
                 }
             )
         }

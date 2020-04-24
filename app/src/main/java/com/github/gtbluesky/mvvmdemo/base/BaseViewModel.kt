@@ -8,8 +8,8 @@ import kotlinx.coroutines.*
 
 open class BaseViewModel : ViewModel() {
 
-    val mErrorMsg: MutableLiveData<String> = MutableLiveData()
-    val mException: MutableLiveData<Throwable> = MutableLiveData()
+    val errorMsg: MutableLiveData<String> = MutableLiveData()
+    val exception: MutableLiveData<Throwable> = MutableLiveData()
 
     fun launchOnMain(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch {
@@ -20,7 +20,7 @@ open class BaseViewModel : ViewModel() {
             } catch (e: Throwable) {
                 if (e !is CancellationException) {
                     Log.e("BaseViewModel", e.message ?: "")
-                    mException.value = e
+                    exception.value = e
                 } else {
                     throw e
                 }

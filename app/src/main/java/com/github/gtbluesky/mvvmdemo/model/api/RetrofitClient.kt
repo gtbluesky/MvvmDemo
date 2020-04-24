@@ -1,5 +1,6 @@
 package com.github.gtbluesky.mvvmdemo.model.api
 
+import com.github.gtbluesky.mvvmdemo.util.HttpsUtil
 import com.github.gtbluesky.mvvmdemo.util.isDebug
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +16,7 @@ object RetrofitClient {
         getRequestApi(RequestServiceApi::class.java, RequestServiceApi.BASE_URL)
     }
 
-    private val mClient: OkHttpClient
+    private val okHttpClient: OkHttpClient
         get() {
             val builder = OkHttpClient.Builder()
             val loggingInterceptor = HttpLoggingInterceptor()
@@ -25,17 +26,18 @@ object RetrofitClient {
             } else {
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
             }
-
+            val sslParams = HttpsUtil.getSslSocketFactory()
             builder.addInterceptor(loggingInterceptor)
                 .addInterceptor(HttpParamInterceptor())
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .hostnameVerifier(HttpsUtil.UnSafeHostnameVerifier)
             return builder.build()
         }
 
     private fun <T> getRequestApi(clz: Class<T>, baseUrl: String): T {
         return Retrofit.Builder()
-            .client(mClient)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
