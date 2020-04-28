@@ -18,11 +18,7 @@ class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {
     fun loadStateInfo() {
         launchOnMain {
             val statInfoResult = async(Dispatchers.IO) {
-                repository.getStatInfo(4)
-            }
-
-            val menuResult = async(Dispatchers.IO) {
-                repository.getPersonalMenu()
+                repository.getStatInfo("gtbluesky")
             }
 
             handleResponse<HomeStatBean>(
@@ -34,22 +30,13 @@ class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {
                     errorMsg.value = it
                 }
             )
-            handleResponse<List<HomeMenuBean>>(
-                menuResult.await(),
-                {
-                    menuValue.value = it
-                },
-                {
-                    errorMsg.value = it
-                }
-            )
         }
     }
 
     fun loadSurveyData(type: Int) {
         launchOnMain {
             val statInfoResult = withContext(Dispatchers.IO) {
-                repository.getStatInfo(4)
+                repository.getStatInfo("gtbluesky")
             }
             handleResponse<HomeStatBean>(
                 statInfoResult,

@@ -15,8 +15,5 @@ class HomeRepository private constructor(private val dao: HomeDao) {
                 }
     }
 
-    suspend fun getStatInfo(type: Int) = RetrofitClient.request.getStatInfo(type = type)
-
-    suspend fun getPersonalMenu() = RetrofitClient.request.getPersonalMenu()
-
+    suspend fun getStatInfo(user: String) = RetrofitClient.request.getRepos(user)
 }

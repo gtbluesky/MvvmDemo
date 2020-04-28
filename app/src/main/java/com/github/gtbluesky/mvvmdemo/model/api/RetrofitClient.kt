@@ -30,7 +30,7 @@ object RetrofitClient {
             builder.addInterceptor(loggingInterceptor)
                 .addInterceptor(HttpParamInterceptor())
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .sslSocketFactory(sslParams.sslSocketFactory, sslParams.trustManager)
                 .hostnameVerifier(HttpsUtil.UnSafeHostnameVerifier)
             return builder.build()
         }

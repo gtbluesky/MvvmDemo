@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_main_layout.*
 class MainFragment : BaseMvvmFragment() {
 
     private val viewModel: HomeViewModel by viewModels {
-        ViewModelProvider.provideHomeViewModel(requireContext())
+        ViewModelProvider.provideHomeViewModel()
     }
     private var contentView: View? = null
 

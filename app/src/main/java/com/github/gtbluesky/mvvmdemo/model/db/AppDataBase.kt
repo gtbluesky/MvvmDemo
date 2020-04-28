@@ -1,17 +1,20 @@
 package com.github.gtbluesky.mvvmdemo.model.db
 
-import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.github.gtbluesky.mvvmdemo.base.BaseApplication
 import com.github.gtbluesky.mvvmdemo.model.db.dao.HomeDao
 import com.github.gtbluesky.mvvmdemo.model.db.dao.ResponseDao
 import com.github.gtbluesky.mvvmdemo.model.db.entity.ResponseEntity
 
 
-@Database(entities = [ResponseEntity::class],
-        version = 1, exportSchema = false)
+@Database(
+    entities = [ResponseEntity::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
 
@@ -22,15 +25,15 @@ abstract class AppDataBase : RoomDatabase() {
         @Volatile
         private var instance: AppDataBase? = null
 
-        fun getInstance(context: Context): AppDataBase {
+        fun getInstance(): AppDataBase {
             return instance ?: synchronized(this) {
-                instance ?: buildDataBase(context).also { instance = it }
+                instance ?: buildDataBase().also { instance = it }
             }
         }
 
-        private fun buildDataBase(context: Context): AppDataBase {
+        private fun buildDataBase(): AppDataBase {
             return Room
-                .databaseBuilder(context, AppDataBase::class.java, "mvvm.db")
+                .databaseBuilder(BaseApplication.context, AppDataBase::class.java, "mvvm.db")
                 .fallbackToDestructiveMigration()
                 .build()
         }

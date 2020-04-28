@@ -12,7 +12,7 @@ import javax.net.ssl.*
 
 object HttpsUtil {
     data class SSLParams(
-        val sSLSocketFactory: SSLSocketFactory,
+        val sslSocketFactory: SSLSocketFactory,
         val trustManager: X509TrustManager
     )
 
@@ -127,7 +127,7 @@ object HttpsUtil {
             keyStore.load(null)
             var index = 0
             for (certStream in certificates) {
-                val certificateAlias = Integer.toString(index++)
+                val certificateAlias = (index++).toString()
                 // 证书工厂根据证书文件的流生成证书 cert
                 val cert =
                     certificateFactory.generateCertificate(certStream)
